@@ -296,7 +296,7 @@ class _FlutterSliderState extends State<FlutterSlider> with TickerProviderStateM
           }
 
           return Stack(
-            overflow: Overflow.visible,
+            // overflow: Overflow.visible,
             children: <Widget>[
 //                  ..._points,
               Container(
@@ -304,7 +304,7 @@ class _FlutterSliderState extends State<FlutterSlider> with TickerProviderStateM
                 height: _containerHeight,
                 width: _containerWidth,
                 child: Stack(
-                  overflow: Overflow.visible,
+                  // overflow: Overflow.visible,
                   children: drawHandlers() as List<Widget>,
                 ),
                 foregroundDecoration: widget.foregroundDecoration,
@@ -1350,7 +1350,7 @@ class _FlutterSliderState extends State<FlutterSlider> with TickerProviderStateM
         child: Draggable(
             axis: widget.axis,
             child: Stack(
-              overflow: Overflow.visible,
+              // overflow: Overflow.visible,
               children: <Widget?>[
                 _tooltip(
                     side: 'left',
@@ -1450,7 +1450,7 @@ class _FlutterSliderState extends State<FlutterSlider> with TickerProviderStateM
     }
 
     return Positioned(
-      key: Key('rightHandler'),
+      key: const Key('rightHandler'),
       left: _rightHandlerXPosition,
       top: _rightHandlerYPosition,
       right: right,
@@ -1459,7 +1459,7 @@ class _FlutterSliderState extends State<FlutterSlider> with TickerProviderStateM
         child: Draggable(
             axis: Axis.horizontal,
             child: Stack(
-              overflow: Overflow.visible,
+              // overflow: Overflow.visible,
               children: <Widget?>[
                 _tooltip(
                     side: 'right',
@@ -1565,13 +1565,13 @@ class _FlutterSliderState extends State<FlutterSlider> with TickerProviderStateM
       controller!.reset();
   }
 
-  drawHandlers() {
-    List<Positioned?> items = []..addAll([
+  List<Positioned?> drawHandlers() {
+    final List<Positioned?> items = []..addAll([
         Function.apply(_inactiveTrack, []) as Positioned?,
         Function.apply(_centralWidget, []) as Positioned?,
         Function.apply(_activeTrack, []) as Positioned?,
       ]);
-    items..addAll(_points!);
+    items.addAll(_points!);
 
     double tappedPositionWithPadding = 0;
 
@@ -1585,7 +1585,7 @@ class _FlutterSliderState extends State<FlutterSlider> with TickerProviderStateM
           child: Listener(
             onPointerUp: (_) {
               if (widget.selectByTap! && !__dragging!) {
-                tappedPositionWithPadding = _distance() as double;
+                tappedPositionWithPadding = _distance();
                 if (_distanceFromLeftHandler! < _distanceFromRightHandler!) {
                   if (!widget.rangeSlider!) {
                     _rightHandlerMove(_, tappedPositionWithPadding: tappedPositionWithPadding, selectedByTap: true);
@@ -1758,7 +1758,7 @@ class _FlutterSliderState extends State<FlutterSlider> with TickerProviderStateM
     }
   }
 
-  _distance() {
+  double _distance() {
     _distanceFromLeftHandler = _distanceFromLeftHandler!.abs();
     _distanceFromRightHandler = _distanceFromRightHandler!.abs();
 
